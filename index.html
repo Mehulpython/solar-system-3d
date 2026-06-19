@@ -245,7 +245,7 @@
 
         // === Stars ===
         function makeStars() {
-            var N = 8000;
+            var N = isMobile ? 3000 : 8000;
             var pos = new Float32Array(N*3), col = new Float32Array(N*3);
             for (var i=0; i<N; i++) {
                 var r = 800 + Math.random()*600;
@@ -301,7 +301,7 @@
                     data._a = Math.random() * Math.PI * 2;
                     var r = Math.max(0.3, data.r);
 
-                    var segs = r >= 5 ? 96 : 64;
+                    var segs = isMobile ? (r >= 5 ? 48 : 32) : (r >= 5 ? 96 : 64);
                     var geo = new T.SphereGeometry(r, segs, Math.floor(segs * 0.75));
                     var tex = loadTex(data.tx);
                     var mat = new T.MeshStandardMaterial({
@@ -365,7 +365,7 @@
                             var dd = (v.length() - inR) / (outR - inR);
                             ua.setXY(vi, dd, 0.5);
                         }
-                        var rTex = loader.load('textures/saturn_rings.png');
+                        var rTex = loader.load(TEXP + 'saturn_rings.png');
                         rTex.anisotropy = 8;
                         var rings = new T.Mesh(rg, new T.MeshBasicMaterial({ map:rTex, transparent:true, side:T.DoubleSide, depthWrite:false }));
                         rings.rotation.x = Math.PI / 2;
